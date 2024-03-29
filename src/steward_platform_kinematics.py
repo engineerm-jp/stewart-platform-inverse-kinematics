@@ -72,11 +72,13 @@ class StewartPlatformKinematics:
         # Find the platform joints Pn relative to the base origin BO
         P_Pn_BO = np.array([np.array(T_PO_BO.dot(T_P_PO).dot(np.append(self.P_Pn_P[i], 1))[:3]) for i in range(6)])
         
-        # Find the distance between the base joints and the platform joints
+        # Find the distance between the base joints and the platform joints (for linear actuators)
         L = np.array([np.linalg.norm(P_Pn_BO[i] - self.P_Bn_BO[i]) for i in range(6)])
+        
+        # For a Stewart Platform with linear actuators, the servo angles are not needed
         angles = self.calculate_servo_angle(P_Pn_BO, self.P_Bn_BO)
         
-        return L, P_Pn_BO, self.P_Bn_BO, angles
+        return L, angles, P_Pn_BO, self.P_Bn_BO
 
     def calculate_servo_angle(self, P_Pn_BO, P_Bn_BO) -> np.ndarray: 
         theta_pair = []
@@ -118,7 +120,7 @@ class StewartPlatformKinematics:
                 length = np.linalg.norm(P_Arm_Bn - np.array([x_Pn_Bn, y_Pn_Bn, z_Pn_Bn]))
                 
                 # Check if the z component of the servo arm is negative
-                if abs(length - self.L_bar)/self.L_bar > 0.02: 
+                if abs(length - self.L_bar)/self.L_bar > 0.01: # If the length is not within 1% of the bar length 
                     P_Arm_Bn = np.array([0, y, -z])
                     length = np.linalg.norm(P_Arm_Bn - np.array([x_Pn_Bn, y_Pn_Bn, z_Pn_Bn]))
 
@@ -127,7 +129,6 @@ class StewartPlatformKinematics:
             # If there is only one solution, repeat it
             if theta_Bn.size == 1: 
                 theta_Bn = np.array([theta_Bn, theta_Bn])
-            # print(f'i: {i}, length: {length}, theta: {theta_Bn* 180/pi}')
             
             theta_pair.append(theta_Bn) 
 
@@ -150,7 +151,7 @@ class StewartPlatformKinematics:
         ROT_P_PO = ROT_P_PO * pi/180 if is_deg else ROT_P_PO
         
         # Find the angles of the servo arms based on the platform pose
-        L, P_Pn_BO, P_Bn_BO, theta = self.inverse_kinematics(P_P_PO, ROT_P_PO)
+        L, theta, P_Pn_BO, P_Bn_BO = self.inverse_kinematics(P_P_PO, ROT_P_PO)
 
         # Plot the base joints Bn and the platform joints Pn
         P_Bn_BO = np.append(P_Bn_BO, [P_Bn_BO[0]], axis=0) # Close the loop for plotting
@@ -161,7 +162,7 @@ class StewartPlatformKinematics:
         
         for i in range(6):
             
-            ## Plot the lines connecting the base joints to the platform joints
+            ## Plot the lines connecting the base joints to the platform joints (for linear actuators)
             # ax.plot([P_Bn_BO[i,0], P_Pn_BO[i,0]], [P_Bn_BO[i,1], P_Pn_BO[i,1]], [P_Bn_BO[i,2], P_Pn_BO[i,2]], 'g-')
         
             # Plot the servo arm (note: the joints with even indices use the first solution, and the joints with odd indices use the second solution)
@@ -172,7 +173,7 @@ class StewartPlatformKinematics:
 
             # Plot the bar to the platform joint
             ax.plot([P_Arm_BO[0], P_Pn_BO[i,0]], [P_Arm_BO[1], P_Pn_BO[i,1]], [P_Arm_BO[2], P_Pn_BO[i,2]], 'm-')
-            # print(np.linalg.norm(P_Pn_BO[i] - P_Arm_BO))
+
         plt.show()
         
     def quadratic_solver(self, a, b, c) -> np.ndarray:
@@ -219,4 +220,4 @@ s = StewartPlatformKinematics()
 s.plot_stewart_platform(P_P_PO=np.array([0, 0, 0]), ROT_P_PO=np.array([0,0,0]), is_deg=True)
 
 # Find the lengths for the linear actuators, and/or the servo angles
-L, _, _, angles = s.inverse_kinematics(np.array([0, 0, 0]), np.array([0,0,0]), is_deg=True)
+L, theta, _, _ = s.inverse_kinematics(np.array([0, 0, 0]), np.array([0,0,0]), is_deg=True)
