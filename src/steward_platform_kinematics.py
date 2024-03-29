@@ -47,9 +47,6 @@ class StewartPlatformKinematics:
             [self.L_P*cos(11*pi/6),  self.L_P*sin(11*pi/6), 0]
         ]) # 3 x 6
         
-        ## Position vectors of the center/origin of the base
-        self.P_BO = np.array([0, 0, 0])
-        
         ## Set default platform origin (PO) pose relative to the base origin frame BO
         self.P_PO_BO = np.array([0, 0, self.L_bar+0.03])
         self.R_PO_BO = self.rotation_matrix(np.array([0, 0, 0]))
