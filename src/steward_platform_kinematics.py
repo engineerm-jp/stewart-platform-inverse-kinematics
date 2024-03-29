@@ -52,6 +52,8 @@ class StewartPlatformKinematics:
         self.P_PO_BO = np.array([0, 0, self.L_bar+0.03])
         self.R_PO_BO = self.rotation_matrix(np.array([0, 0, 0]))
         
+        # --- Platform parameters end ---
+
     def inverse_kinematics(self, P_P_PO, ROT_P_PO, is_deg=False) -> np.ndarray:
         # Input:    P_P_PO - position vector of the platform origin relative to the initial platform origin
         #           ROT_P_IPO - rotation angles of the platform relative to the initial platform origin
