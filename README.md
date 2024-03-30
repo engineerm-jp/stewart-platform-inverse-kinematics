@@ -5,9 +5,10 @@ A simple inverse kinematics solver for a Stewart Platform with an additional cor
 ## Platform Diagram
 
 Refer to the image below for the dimensions, parameters, frames, and axes used to calculate the servo angles.
-![alt](images/platform_diagram.png)
+![alt](images/Slide2.PNG)
 
 ## Details of the Calculations
+
 ![alt](images/Slide3.PNG)
 ![alt](images/Slide4.PNG)
 ![alt](images/Slide5.PNG)
