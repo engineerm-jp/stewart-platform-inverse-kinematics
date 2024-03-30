@@ -39,7 +39,7 @@ class StewartPlatformKinematics:
         
         # Positions of the platform joints Pn (n = 0 - 5) relative to the platform origin frame PO
         # Assuming the platform is a regular hexagon but offset by 30 deg around yaw (customizable for other shapes)
-        self.P_Pn_P = np.array([
+        self.P_Pn_PO = np.array([
             [self.L_P*cos(pi/6),     self.L_P*sin(pi/6), 0],
             [self.L_P*cos(pi/2),     self.L_P*sin(pi/2), 0],
             [self.L_P*cos(5*pi/6),   self.L_P*sin(5*pi/6), 0],
@@ -62,15 +62,15 @@ class StewartPlatformKinematics:
         ROT_P_PO = ROT_P_PO * pi/180 if is_deg else ROT_P_PO
 
         # Find the rotation matrix from the platform frame to the initial platform frame
-        R_P_IPO = self.rotation_matrix(ROT_P_PO)    
+        R_P_PO = self.rotation_matrix(ROT_P_PO)    
         # Find the homogeneous transformation matrix from initial platform origin PO to the plat form
-        T_P_PO = self.homogeneous_transform(R_P_IPO, P_P_PO)
+        T_P_PO = self.homogeneous_transform(R_P_PO, P_P_PO)
         
         # Find the homogeneous transformation matrix from the base origin to the initial platform origin
         T_PO_BO = self.homogeneous_transform(self.R_PO_BO, self.P_PO_BO)
         
         # Find the platform joints Pn relative to the base origin BO
-        P_Pn_BO = np.array([np.array(T_PO_BO.dot(T_P_PO).dot(np.append(self.P_Pn_P[i], 1))[:3]) for i in range(6)])
+        P_Pn_BO = np.array([np.array(T_PO_BO.dot(T_P_PO).dot(np.append(self.P_Pn_PO[i], 1))[:3]) for i in range(6)])
         
         # Find the distance between the base joints and the platform joints (for linear actuators)
         L = np.array([np.linalg.norm(P_Pn_BO[i] - self.P_Bn_BO[i]) for i in range(6)])
