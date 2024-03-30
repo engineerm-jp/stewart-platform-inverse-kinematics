@@ -28,7 +28,7 @@ class StewartPlatformKinematics:
         
         # Rotations of the base joints' axes relative to the base origin frame BO (customizable)
         # Note: the x-axis of the base joint is aligned with the rotation axis of the servo motor
-        self.R_BnO_BO = np.array([
+        self.R_Bn_BO = np.array([
             [0, 0, pi/6],
             [0, 0, pi/2],
             [0, 0, 5*pi/6],
@@ -49,7 +49,7 @@ class StewartPlatformKinematics:
         ]) # 3 x 6
         
         # Set default platform origin (PO) pose relative to the base origin frame BO
-        self.P_PO_BO = np.array([0, 0, self.L_bar+0.03])
+        self.P_PO_BO = np.array([0, 0, self.L_bar])
         self.R_PO_BO = self.rotation_matrix(np.array([0, 0, 0]))
         
         # --- Platform parameters end ---
@@ -88,7 +88,7 @@ class StewartPlatformKinematics:
             for i in range(6):
                 # Find the rotation matrix and position vector of the base origin (BO) relative to the base joints (Bn)
                 # where Bn is the n-th base joint
-                R_BO_Bn = np.transpose(self.rotation_matrix(self.R_BnO_BO[i]))
+                R_BO_Bn = np.transpose(self.rotation_matrix(self.R_Bn_BO[i]))
                 P_BO_Bn = -R_BO_Bn.dot(P_Bn_BO[i])
                 
                 # Find the homogeneous transformation of the base origin (BO) relative to the base joint (Bn)
@@ -175,7 +175,7 @@ class StewartPlatformKinematics:
         
             # Plot the servo arm (note: the joints with even indices use the first solution, and the joints with odd indices use the second solution)
             P_Arm_Bn = np.array([0, self.L_servo*cos(theta[i][i%2]), self.L_servo*sin(theta[i][i%2])])
-            T_Bn_BO = self.homogeneous_transform(self.rotation_matrix(self.R_BnO_BO[i]), self.P_Bn_BO[i])
+            T_Bn_BO = self.homogeneous_transform(self.rotation_matrix(self.R_Bn_BO[i]), self.P_Bn_BO[i])
             P_Arm_BO = T_Bn_BO.dot(np.append(P_Arm_Bn, 1))[:3]
             ax.plot([P_Bn_BO[i,0], P_Arm_BO[0]], [P_Bn_BO[i,1], P_Arm_BO[1]], [P_Bn_BO[i,2], P_Arm_BO[2]], 'k-')
 
