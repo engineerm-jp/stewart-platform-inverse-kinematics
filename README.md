@@ -29,6 +29,11 @@ s.plot_stewart_platform(P_P_PO=np.array([0.01, 0, -0.03]), ROT_P_PO=np.array([10
 L, theta, _, _ = s.inverse_kinematics(np.array([0.01, 0, -0.03]), np.array([10,10,10]), is_deg=True)
 ```
 
+## Requirement
+
+1. **Numpy**
+2. **Matplotlib**
+
 ## Platform Diagram
 
 Refer to the image below for the dimensions, parameters, frames, and axes used to calculate the servo angles.
