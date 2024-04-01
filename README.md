@@ -5,7 +5,7 @@ A simple inverse kinematics solver for a Stewart Platform with an additional cor
 ## Features
 
 - **Inverse Kinematics Solver**: Given the position and orientation of the platform, the script calculates the lengths of linear actuators and servo angles needed to achieve that position.
-- **Plotting**: The script can generate 3D plots of the Stewart platform showing the base joints, platform joints, linear actuators, and servo arms.
+- **Plotting**: The script can generate 3D plots of the Stewart platform showing the base joints, platform joints, and servo arms.
 - **Customizable Parameters**: The parameters of the Stewart platform, such as lengths of bars, servos, and joint positions, are customizable.
 
 ## Usage
