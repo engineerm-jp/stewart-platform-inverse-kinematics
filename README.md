@@ -25,6 +25,7 @@ s.plot_stewart_platform(P_P_PO=np.array([0.01, 0, -0.03]), ROT_P_PO=np.array([10
 
 # Find the lengths for the linear actuators, and/or the servo angles to
 # move the platform to x=0.01, y=0.0, z=-0.03, roll=10deg, pitch=10deg, yaw=10deg
+# relative to the platform's default origin (can be customised in the code)
 L, theta, _, _ = s.inverse_kinematics(np.array([0.01, 0, -0.03]), np.array([10,10,10]), is_deg=True)
 ```
 
@@ -33,7 +34,7 @@ L, theta, _, _ = s.inverse_kinematics(np.array([0.01, 0, -0.03]), np.array([10,1
 Refer to the image below for the dimensions, parameters, frames, and axes used to calculate the servo angles.
 ![alt](docs/slides/Slide2.PNG)
 
-## Details of the Calculations
+## Inverse Kinematics Calculation
 
 ![alt](docs/slides/Slide3.PNG)
 ![alt](docs/slides/Slide4.PNG)
