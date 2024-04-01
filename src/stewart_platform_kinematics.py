@@ -58,6 +58,10 @@ class StewartPlatformKinematics:
         # Input:    P_P_PO - position vector of the platform origin relative to the initial platform origin
         #           ROT_P_IPO - rotation angles of the platform relative to the initial platform origin
         
+        # Convert the input to numpy arrays
+        P_P_PO = np.array(P_P_PO)
+        ROT_P_PO = np.array(ROT_P_PO)
+        
         # Check if the input angles are in degrees
         ROT_P_PO = ROT_P_PO * pi/180 if is_deg else ROT_P_PO
 
@@ -154,6 +158,10 @@ class StewartPlatformKinematics:
         ax.set_xlabel('X')
         ax.set_ylabel('Y')
         ax.set_zlabel('Z')
+        
+        # Convert the input to numpy arrays
+        P_P_PO = np.array(P_P_PO)
+        ROT_P_PO = np.array(ROT_P_PO)
         
         # Check if the input angles are in degrees
         ROT_P_PO = ROT_P_PO * pi/180 if is_deg else ROT_P_PO
