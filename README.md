@@ -17,4 +17,9 @@ Refer to the image below for the dimensions, parameters, frames, and axes used t
 ![alt](images/Slide8.PNG)
 ![alt](images/Slide9.PNG)
 ![alt](images/Slide10.PNG)
->more to come soon
+![alt](images/Slide11.PNG)
+![alt](images/Slide12.PNG)
+![alt](images/Slide13.PNG)
+![alt](images/Slide14.PNG)
+![alt](images/Slide15.PNG)
+![alt](images/Slide16.PNG)
