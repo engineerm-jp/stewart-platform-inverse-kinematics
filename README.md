@@ -12,9 +12,9 @@ A simple inverse kinematics solver for a Stewart Platform with an additional cor
 
 1. Import the class from the script.
 2. Instantiate the `StewartPlatformKinematics` class.
-3. Call the `plot_stewart_platform()` method to visualize the platform.
-4. Call the `inverse_kinematics()` method to calculate lengths and angles based on the desired platform position.
-5. Optionally, adjust parameters such as dimensions and default orientation of the platform.
+3. Call the `inverse_kinematics()` method to calculate lengths and angles based on the desired platform position.
+4. Optional: Adjust parameters such as dimensions and default orientation of the platform.
+5. Optional: Call the `plot_stewart_platform()` method to visualize the platform.
 
 ```python
 # Example usage 
