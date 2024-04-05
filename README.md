@@ -31,8 +31,8 @@ L, theta, _, _ = s.inverse_kinematics(np.array([0.01, 0, -0.03]), np.array([10,1
 
 ## Requirement
 
-1. **Numpy**
-2. **Matplotlib**
+1. **Numpy** ```pip install numpy```
+2. **Matplotlib** ```pip install matplotlib```
 
 ## Platform Diagram
 
