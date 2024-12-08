@@ -29,7 +29,7 @@ s.plot_stewart_platform(P_P_PO=np.array([0.01, 0, -0.03]), ROT_P_PO=np.array([10
 L, theta, _, _ = s.inverse_kinematics(np.array([0.01, 0, -0.03]), np.array([10,10,10]), is_deg=True)
 ```
 
-## Requirement
+## Requirements
 
 1. **NumPy**: ```pip install numpy```
 2. **Matplotlib**: ```pip install matplotlib``
