@@ -17,36 +17,50 @@ class StewartPlatformKinematics:
 
         # Positions of the base joints Bn (n = 0 - 5)) relative to the base origin frame BO
         # Assuming the base is a regular hexagon (customizable for other shapes)
+        self.P_Bn_BO = np.array([ [self.L_B*cos((2*i+1)*pi/6), self.L_B*sin((2*i+1)*pi/6), 0] for i in range(6) ]) # 3 x 6
+        '''
+        Use this if your design of the base is not a regular hexagon
         self.P_Bn_BO = np.array([
-            [self.L_B*cos(pi/6),     self.L_B*sin(pi/6), 0],
-            [self.L_B*cos(pi/2),     self.L_B*sin(pi/2), 0],
-            [self.L_B*cos(5*pi/6),   self.L_B*sin(5*pi/6), 0],
-            [self.L_B*cos(7*pi/6),   self.L_B*sin(7*pi/6), 0],
-            [self.L_B*cos(3*pi/2),   self.L_B*sin(3*pi/2), 0],
+            [self.L_B*cos(   pi/6),  self.L_B*sin(   pi/6), 0],
+            [self.L_B*cos( 3*pi/6),  self.L_B*sin( 3*pi/6), 0],
+            [self.L_B*cos( 5*pi/6),  self.L_B*sin( 5*pi/6), 0],
+            [self.L_B*cos( 7*pi/6),  self.L_B*sin( 7*pi/6), 0],
+            [self.L_B*cos( 9*pi/6),  self.L_B*sin( 9*pi/6), 0],
             [self.L_B*cos(11*pi/6),  self.L_B*sin(11*pi/6), 0]
-        ]) # 3 x 6
-        
+        ]) # 3 x 6      
+
+        '''
+
         # Rotations of the base joints' axes relative to the base origin frame BO (customizable)
         # Note: the x-axis of the base joint is aligned with the rotation axis of the servo motor
+        self.R_Bn_BO = np.array([[0, 0, (2*i+1)*pi/6] for i in range(6)])
+        '''
+        Use this if your base joints are not in a regular hexagon
         self.R_Bn_BO = np.array([
-            [0, 0, pi/6],
-            [0, 0, pi/2],
-            [0, 0, 5*pi/6],
-            [0, 0, 7*pi/6],
-            [0, 0, 3*pi/2],
+            [0, 0,    pi/6],
+            [0, 0,  3*pi/6],
+            [0, 0,  5*pi/6],
+            [0, 0,  7*pi/6],
+            [0, 0,  9*pi/6],
             [0, 0, 11*pi/6]
         ])
+        '''
         
         # Positions of the platform joints Pn (n = 0 - 5) relative to the platform origin frame PO
         # Assuming the platform is a regular hexagon but offset by 30 deg around yaw (customizable for other shapes)
+        self.P_Pn_P = np.array([ [self.L_P*cos((2*i+1)*pi/6), self.L_P*sin((2*i+1)*pi/6), 0] for i in range(6) ]) # 3 x 6
+        '''
+        Use this if your platform is not a regular hexagon
         self.P_Pn_P = np.array([
-            [self.L_P*cos(pi/6),     self.L_P*sin(pi/6), 0],
-            [self.L_P*cos(pi/2),     self.L_P*sin(pi/2), 0],
-            [self.L_P*cos(5*pi/6),   self.L_P*sin(5*pi/6), 0],
-            [self.L_P*cos(7*pi/6),   self.L_P*sin(7*pi/6), 0],
-            [self.L_P*cos(3*pi/2),   self.L_P*sin(3*pi/2), 0],
-            [self.L_P*cos(11*pi/6),  self.L_P*sin(11*pi/6), 0]
+            [self.L_P*cos(   pi/6), self.L_P*sin(   pi/6), 0],
+            [self.L_P*cos( 3*pi/6), self.L_P*sin( 3*pi/6), 0],
+            [self.L_P*cos( 5*pi/6), self.L_P*sin( 5*pi/6), 0],
+            [self.L_P*cos( 7*pi/6), self.L_P*sin( 7*pi/6), 0],
+            [self.L_P*cos( 9*pi/6), self.L_P*sin( 9*pi/6), 0],
+            [self.L_P*cos(11*pi/6), self.L_P*sin(11*pi/6), 0]
         ]) # 3 x 6
+        
+        '''
         
         # Set default platform origin (PO) pose relative to the base origin frame BO
         self.P_PO_BO = np.array([0, 0, self.L_bar])
